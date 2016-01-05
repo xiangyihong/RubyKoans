@@ -13,8 +13,20 @@
 # and
 #   about_triangle_project_2.rb
 #
+
+def triangle_validate(a, b, c)
+  arr = [a, b, c]
+  return false if arr.any? {|x| x <= 0}
+  
+  arr.sort!
+  valid = (arr[0]+arr[1] > arr[2]) and (arr[2]-arr[1]<arr[0])
+  valid
+end
+
 def triangle(a, b, c)
-  # WRITE THIS CODE
+  raise TriangleError unless triangle_validate(a, b, c)
+  equal_count = [a, b, c].combination(2).select { |x, y| x == y }.count
+  [:scalene, :isosceles, :equilateral, :equilateral][equal_count]
 end
 
 # Error class used in part 2.  No need to change this code.
