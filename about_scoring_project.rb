@@ -31,6 +31,26 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  raise Exception unless dice.is_a? Array and dice.length <= 5
+  score = 0
+  counter = Hash.new(0)
+  dice.each do |x|
+    counter[x] += 1
+  end
+
+  counter.each do |x, y|
+    if y >= 3
+      score += x == 1 ? 1000 : x*100
+      y -= 3
+    end
+
+    while y >= 1
+      score += 100 if x == 1
+      score += 50 if x == 5 
+      y -= 1
+    end
+  end
+  score
 end
 
 class AboutScoringProject < Neo::Koan
